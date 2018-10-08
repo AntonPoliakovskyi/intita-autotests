@@ -13,7 +13,13 @@ public class BaseTest {
 
     @BeforeAll
     public static void setup(){
-        System.setProperty("webdriver.chrome.driver", "drivers" + File.separator + "chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "drivers" + File.separator + "chromedriver.exe");
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if (os.contains("mac"))
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/mac/chromedriver");
+        else
+            System.setProperty("webdriver.chrome.driver", "TBD");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get(baseUrl);
