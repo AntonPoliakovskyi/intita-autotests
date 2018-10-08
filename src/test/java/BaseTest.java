@@ -4,17 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+
 public class BaseTest {
     public static WebDriver driver;
     public static WebDriverWait wait;
-    private final String baseUrl = "https://intita.com/";
+    private static final String baseUrl = "https://intita.com/";
 
     @BeforeAll
     public static void setup(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Anton_Poliakovskyi\\IdeaProjects\\intita-autotests\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "drivers" + File.separator + "chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://intita.com/");
+        driver.get(baseUrl);
     }
 
     @AfterAll
