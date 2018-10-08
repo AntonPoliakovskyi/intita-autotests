@@ -9,7 +9,7 @@ import java.io.File;
 public class BaseTest {
     public static WebDriver driver;
     public static WebDriverWait wait;
-    private static final String baseUrl = "https://intita.com/";
+    private static final String baseUrl = "https://intita.itatests.com/";
 
     @BeforeAll
     public static void setup(){
@@ -20,8 +20,13 @@ public class BaseTest {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/mac/chromedriver");
         else
             System.setProperty("webdriver.chrome.driver", "TBD");
+
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        if (os.contains("mac"))
+            driver.manage().window().fullscreen();
+        else
+            driver.manage().window().maximize();
+
         driver.get(baseUrl);
     }
 
