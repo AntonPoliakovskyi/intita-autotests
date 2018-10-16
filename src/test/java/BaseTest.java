@@ -2,6 +2,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -22,6 +23,7 @@ public class BaseTest {
             System.setProperty("webdriver.chrome.driver", "drivers" + File.separator + "chromedriver.exe");
 
         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver,5);
         if (os.contains("mac"))
             driver.manage().window().fullscreen();
         else

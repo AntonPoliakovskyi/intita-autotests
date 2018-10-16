@@ -1,13 +1,12 @@
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SimpleTest extends BaseTest {
 
     @Test
-    public void test(){
+    public void test() throws InterruptedException {
         MainPage mainPage = new MainPage(driver, wait);
+        mainPage.chooseLanguage(BasePage.Languages.EN);
         mainPage.clickCourses();
+
     }
 }
