@@ -17,7 +17,7 @@ public class BaseTest {
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("mac"))
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + File.separator + "drivers/mac/chromedriver");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/mac/chromedriver");
         else
             System.setProperty("webdriver.chrome.driver", "drivers" + File.separator + "chromedriver.exe");
 
