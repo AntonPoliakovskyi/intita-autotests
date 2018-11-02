@@ -23,17 +23,19 @@ public abstract class BasePage implements WebDriver {
     private static final By coursesBtn = By.xpath(String.format(menuItem, "Курси") + "|" + String.format(menuItem, "Courses") + "|" + String.format(menuItem, "Курсы"));
 
     private static final By loginBtn = By.id("enter_button");
-    protected static WebDriver driver;
-    protected static WebDriverWait wait;
+    protected  WebDriver driver;
+    protected WebDriverWait wait;
 
-    public BasePage() {
-        driver = Driver.get();
-        wait = Wait.getWait();
+
+
+    public BasePage(final WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver,5);
     }
 
     public CoursesPage navigateToCoursesPage() {
         findElement(coursesBtn).click();
-        return new CoursesPage();
+        return new CoursesPage(driver);
     }
 
     public void getLoginPopUp() {
@@ -58,6 +60,7 @@ public abstract class BasePage implements WebDriver {
     }
 
     protected void waitForPageTobeLoaded() {
+
         wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     }
 

@@ -1,14 +1,29 @@
 import org.junit.jupiter.api.Test;
-import pages.MainPage;
-import pages.courses.CoursesPage;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
+@Execution(ExecutionMode.CONCURRENT)
 public class SimpleTest extends BaseTest {
 
+
     @Test
-    public void test() throws InterruptedException {
-        MainPage mainPage = new MainPage();
-        CoursesPage coursesPage = mainPage.navigateToCoursesPage();
-       // System.out.println(coursesPage.getCourseNameList());
-       coursesPage.printCourseObjectsMap();
+    public void test() {
+
+
+
     }
+
+
+    @Test
+    public void test2() {
+        mainPage.navigateToCoursesPage();
+    }
+
+    @Test
+    public void test3() {
+        mainPage.navigateToCoursesPage();
+    }
+
 }

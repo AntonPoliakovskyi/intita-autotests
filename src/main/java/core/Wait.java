@@ -9,7 +9,7 @@ public class Wait {
 
     public static WebDriverWait getWait(int timeOut) {
         if(wait == null) {
-            wait = new WebDriverWait(Driver.get(), timeOut);
+            wait = new WebDriverWait(Driver.getDriver(), timeOut);
         }
         return wait;
     }
