@@ -1,7 +1,6 @@
 package pages;
 
-import core.Driver;
-import core.Wait;
+import core.WebDriverAdaptor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,28 +8,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.courses.CoursesPage;
 
-import java.util.List;
-import java.util.Set;
+import static common.MenuItems.COURSES;
 
-public abstract class BasePage implements WebDriver {
+public abstract class BasePage extends WebDriverAdaptor {
 
     private static final String languageSwitcher = "//*[@id=\"lang\"]/descendant::node()/a[text()[contains(.,'%s')]]";
-
     private static final By selectedLanguage = By.xpath("//div[@class='languageRow']/a[@class=\"selectedLang\"]");
-
-    private static final String menuItem = "//tr[@class=\"main\"]/descendant::node()/a[text()[contains(.,'%s')]]";
-
-    private static final By coursesBtn = By.xpath(String.format(menuItem, "Курси") + "|" + String.format(menuItem, "Courses") + "|" + String.format(menuItem, "Курсы"));
-
+    private static final String menuItem = "//tr[@class=\"main\"]/descendant::a[contains(@href,'%s')]";
+    private static final By coursesBtn = By.xpath(String.format(menuItem, COURSES.getItem()));
     private static final By loginBtn = By.id("enter_button");
-    protected  WebDriver driver;
+
     protected WebDriverWait wait;
 
 
-
     public BasePage(final WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver,5);
+        super(driver);
+        this.wait = new WebDriverWait(driver, 5);
     }
 
     public CoursesPage navigateToCoursesPage() {
@@ -39,9 +32,8 @@ public abstract class BasePage implements WebDriver {
     }
 
     public void getLoginPopUp() {
-        findElement(loginBtn).click();
         WebElement popUp = findElement(loginBtn);
-
+        popUp.click();
     }
 
     protected String getSelectedLanguage() {
@@ -60,73 +52,7 @@ public abstract class BasePage implements WebDriver {
     }
 
     protected void waitForPageTobeLoaded() {
-
         wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-    }
-
-    @Override
-    public void get(String s) {
-        driver.get(s);
-    }
-
-    @Override
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
-
-    @Override
-    public String getTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public List<WebElement> findElements(By by) {
-        return driver.findElements(by);
-    }
-
-    @Override
-    public WebElement findElement(By by) {
-        return driver.findElement(by);
-    }
-
-    @Override
-    public String getPageSource() {
-        return driver.getPageSource();
-    }
-
-    @Override
-    public void close() {
-        driver.close();
-    }
-
-    @Override
-    public void quit() {
-        driver.quit();
-    }
-
-    @Override
-    public Set<String> getWindowHandles() {
-        return driver.getWindowHandles();
-    }
-
-    @Override
-    public String getWindowHandle() {
-        return driver.getWindowHandle();
-    }
-
-    @Override
-    public TargetLocator switchTo() {
-        return driver.switchTo();
-    }
-
-    @Override
-    public Navigation navigate() {
-        return driver.navigate();
-    }
-
-    @Override
-    public Options manage() {
-        return driver.manage();
     }
 
     public enum Languages {
@@ -144,6 +70,4 @@ public abstract class BasePage implements WebDriver {
             return language;
         }
     }
-
-
 }
