@@ -1,9 +1,0 @@
-*/target/**
-
-# Intellij
-.idea/
-*.iml
-*.iws
-
-# target on Mac
-target/
