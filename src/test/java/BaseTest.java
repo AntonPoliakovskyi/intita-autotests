@@ -1,40 +1,26 @@
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import core.Driver;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.File;
+import pages.MainPage;
 
 public class BaseTest {
-    public static WebDriver driver;
-    public static WebDriverWait wait;
-    private static final String baseUrl = "https://intita.itatests.com/";
+    protected WebDriver driver;
 
-    @BeforeAll
-    public static void setup(){
+    protected MainPage mainPage;
 
-        String os = System.getProperty("os.name").toLowerCase();
 
-        if (os.contains("mac"))
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/mac/chromedriver");
-        else
-            System.setProperty("webdriver.chrome.driver", "drivers" + File.separator + "chromedriver.exe");
-
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver,5);
-        if (os.contains("mac"))
-            driver.manage().window().fullscreen();
-        else
-            driver.manage().window().maximize();
-
-        driver.get(baseUrl);
+    @BeforeEach
+    public void init() {
+        driver = Driver.getDriver();
+        mainPage = new MainPage(driver)
+                .openMainPage();
     }
 
-    @AfterAll
-    public static void teardown(){
+    @AfterEach
+    public void teardown() {
         driver.quit();
     }
+
 
 }
